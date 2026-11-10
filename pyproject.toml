@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-sql-guard"
+version = "1.0.0"
+description = "Enterprise Read-Only SQL & Telemetry MCP Server with Zero-Trust Guardrails"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Enterprise Data Security Engineering" }
+]
+dependencies = [
+    "mcp[cli]>=1.2.0",
+    "aiosqlite>=0.20.0",
+    "pydantic>=2.7.0",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[project.scripts]
+mcp-sql-guard = "mcp_sql_guard.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = [
+    "ignore:.*Field 'lifespan' has an incomplete definition.*:UserWarning",
+]
